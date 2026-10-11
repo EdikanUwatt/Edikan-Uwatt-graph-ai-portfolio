@@ -453,18 +453,21 @@
         <div class="submissions">
           <article class="submission">
             <div class="week">Week 01</div>
-            <h3>Course submission</h3>
-                        <a href="#" aria-label="Week 1 submission">Open submission <span>→</span></a>
+            <h3>Websites, Documents &amp; Presentations</h3>
+            <p>Developed this portfolio website and explored how generative AI can help plan and produce digital content. The work focused on organising information clearly and using AI-assisted support for website content, documents and presentations.</p>
+            <a href="#" aria-label="Week 1 submission">Open submission <span>→</span></a>
           </article>
           <article class="submission">
             <div class="week">Week 02</div>
-            <h3>Course submission</h3>
-                        <a href="https://github.com/EdikanUwatt/Edikan-Uwatt-graph-ai-portfolio/blob/main/GDP_LifeExpectancy_2020_Report_Edikan%20Uwatt.pdf" target="_blank" rel="noopener noreferrer" aria-label="Week 2 submission">Open submission <span>→</span></a>
+            <h3>Automated Data Analysis</h3>
+            <p>Used Gapminder data from 2020 to explore the relationship between GDP per capita and life expectancy across countries. Generative AI tools supported the analysis, and the findings were documented in a report.</p>
+            <a href="https://github.com/EdikanUwatt/Edikan-Uwatt-graph-ai-portfolio/blob/main/GDP_LifeExpectancy_2020_Report_Edikan%20Uwatt.pdf" target="_blank" rel="noopener noreferrer" aria-label="Week 2 submission">Open submission <span>→</span></a>
           </article>
           <article class="submission">
             <div class="week">Week 03</div>
-            <h3>Course submission</h3>
-                        <a href="#" aria-label="Week 3 submission">Open submission <span>→</span></a>
+            <h3>Custom Chatbot with Botpress</h3>
+            <p>Created a chatbot using Botpress and embedded it into this portfolio website. Click the submission link to open the interactive bot and try it out.</p>
+            <a href="#ask" data-open-bot aria-label="Open the Week 3 Botpress chatbot">Open submission <span>→</span></a>
           </article>
           <article class="submission">
             <div class="week">Week 04</div>
@@ -524,5 +527,42 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var botOpenRequested = false;
+      var weekThreeLink = document.querySelector('[data-open-bot]');
+
+      function openBotWhenReady() {
+        if (window.botpress && typeof window.botpress.open === 'function') {
+          window.botpress.open();
+          botOpenRequested = false;
+        } else {
+          botOpenRequested = true;
+        }
+      }
+
+      if (weekThreeLink) {
+        weekThreeLink.addEventListener('click', function () {
+          botOpenRequested = true;
+          openBotWhenReady();
+        });
+      }
+
+      if (window.botpress && typeof window.botpress.on === 'function') {
+        window.botpress.on('webchat:initialized', function () {
+          if (botOpenRequested || window.location.hash === '#ask') {
+            window.setTimeout(function () {
+              if (window.botpress && typeof window.botpress.open === 'function') {
+                window.botpress.open();
+              }
+              botOpenRequested = false;
+            }, 500);
+          }
+        });
+      }
+    })();
+  </script>
+
 </body>
 </html>
